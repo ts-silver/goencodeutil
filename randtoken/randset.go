@@ -2,6 +2,7 @@ package randtoken
 
 import (
 	"math/rand"
+	"strings"
 	"time"
 )
 
@@ -16,9 +17,9 @@ var LetterRunesHex = []rune("1234567890ABCDEFabcdef")
 
 //RandStringRunes generate string with fixed length of provided rune set
 func RandStringRunes(n int, runes []rune) string {
-	b := make([]rune, n)
-	for i := range b {
-		b[i] = runes[rand.Intn(len(runes))]
+	sb := strings.Builder{}
+	for i := 0; i < n; i++ {
+		sb.WriteRune(runes[rand.Intn(len(runes))])
 	}
-	return string(b)
+	return sb.String()
 }
