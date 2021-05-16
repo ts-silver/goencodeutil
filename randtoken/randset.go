@@ -1,14 +1,10 @@
 package randtoken
 
 import (
-	"math/rand"
+	"crypto/rand"
+	"math/big"
 	"strings"
-	"time"
 )
-
-func init() {
-	rand.Seed(time.Now().UnixNano())
-}
 
 var letterRunesWX = []rune("1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ")
 
@@ -19,7 +15,8 @@ var LetterRunesHex = []rune("1234567890ABCDEFabcdef")
 func RandStringRunes(n int, runes []rune) string {
 	sb := strings.Builder{}
 	for i := 0; i < n; i++ {
-		sb.WriteRune(runes[rand.Intn(len(runes))])
+		num, _ := rand.Int(rand.Reader, big.NewInt(int64(len(runes))))
+		sb.WriteRune(runes[num.Int64()])
 	}
 	return sb.String()
 }
